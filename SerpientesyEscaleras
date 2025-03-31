@@ -1,0 +1,307 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOR0Z9n1BIHfFIjQIu0Ikt2",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/fatima2020-lab/Simulacion-I/blob/main/SerpientesyEscaleras\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "SERPIENTES Y ESCALERAS"
+      ],
+      "metadata": {
+        "id": "8V30UXfWV7og"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "wi4P_0tLCP4O"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Analiticamente:"
+      ],
+      "metadata": {
+        "id": "SafrrZt-XaDk"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Variables del problema:\n",
+        "\n",
+        "\n",
+        "*   Posición actual del jugador\n",
+        "*   Tirada del dado: Número aleatorio entre 1 y 6\n",
+        "*   Número de tiradas\n",
+        "*   Escaleras\n",
+        "*   Serpientes\n",
+        "*   Número de simulaciones\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "bdSZAyaJbI0g"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Simular"
+      ],
+      "metadata": {
+        "id": "Pfw1Z_B2CTjF"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "import random"
+      ],
+      "metadata": {
+        "id": "VCEQtIjSCO_n"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Generar la funcion que simule un dado de 6 caras"
+      ],
+      "metadata": {
+        "id": "aCT8nI_RWHcy"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def lanzar_dado():\n",
+        "  \"\"\" Simula un dado de 6 caras \"\"\"\n",
+        "  return random.randint(1,6)\n"
+      ],
+      "metadata": {
+        "id": "ndIjLue3WMXC"
+      },
+      "execution_count": 5,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "resultado = lanzar_dado()\n",
+        "print(resultado)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "AXo_nLMRWeyK",
+        "outputId": "6c5a469d-7776-418c-cb66-51d7da53f3b2"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "1\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Función para la  Posición en el tablero junto con las condiciones proporcionadas\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "NaARSUPjaWyH"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "jeFjNBmAe3wB"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def posicion_jugador(posicion_actual, dado):\n",
+        "  \"\"\" Calcula la nueva posicion del jugador en el tablero \"\"\"\n",
+        "  nueva_posicion = posicion_actual + dado\n",
+        "\n",
+        "  # Condiciones de Escaleras\n",
+        "  if nueva_posicion == 3:\n",
+        "    nueva_posicion = 11\n",
+        "  elif nueva_posicion == 15:\n",
+        "    nueva_posicion = 19\n",
+        "\n",
+        "  # Condiciones de Serpientes\n",
+        "  if nueva_posicion == 13:\n",
+        "    nueva_posicion =4\n",
+        "  elif nueva_posicion == 17:\n",
+        "    nueva_posicion =10\n",
+        "\n",
+        "  return min(nueva_posicion, 20)"
+      ],
+      "metadata": {
+        "id": "IjEDxml7c1v6"
+      },
+      "execution_count": 7,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Función para Simular el Juego"
+      ],
+      "metadata": {
+        "id": "Gp_9h14aaWHo"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def juego():\n",
+        "  \"\"\" Simular un juego de serpientes y escaleras hasta llegar a la meta (casilla 20)\"\"\"\n",
+        "  posicion_actual = 0\n",
+        "  tiros = 0\n",
+        "\n",
+        "  while posicion_actual < 20:\n",
+        "    dado =lanzar_dado()\n",
+        "    posicion_actual =posicion_jugador(posicion_actual, dado)\n",
+        "    tiros += 1\n",
+        "\n",
+        "  return tiros"
+      ],
+      "metadata": {
+        "id": "hpRHRIXtfYNY"
+      },
+      "execution_count": 8,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Dar el numero de simulaciones."
+      ],
+      "metadata": {
+        "id": "-0qRD3Y3Bh2x"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Número de simulaciones\n",
+        "num_simulaciones = 1000"
+      ],
+      "metadata": {
+        "id": "Cd2K9ptogwJF"
+      },
+      "execution_count": 14,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "tiros_totales = [juego() for _ in range(num_simulaciones)]"
+      ],
+      "metadata": {
+        "id": "XYs85T_wBxHI"
+      },
+      "execution_count": 15,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Calcular el Promedio de los tiros"
+      ],
+      "metadata": {
+        "id": "2fy-SLDwBj6v"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "promedio_tiros = sum(tiros_totales) / num_simulaciones"
+      ],
+      "metadata": {
+        "id": "3NYjXXTjBi7P"
+      },
+      "execution_count": 16,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "print(f\"Se necesitan en promedio {promedio_tiros:.4f} tiros para llegar a la casilla 20.\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "fWoMJoSjhS-B",
+        "outputId": "6478722e-c1c1-4ba0-aeb2-419514b69da4"
+      },
+      "execution_count": 17,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Se necesitan en promedio 6.8940 tiros para llegar a la casilla 20.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "apakpH5xWqab"
+      }
+    }
+  ]
+}
